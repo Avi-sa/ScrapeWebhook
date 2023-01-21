@@ -25,6 +25,6 @@ services:
     volumes:
       - .:/scrapper
     command: >
-      sh -c "npm install nodemon && npm start dev"
+      sh -c "npm install nodemon && npm run dev"
     env_file:
       - .env
