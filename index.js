@@ -12,9 +12,9 @@ app.get('/home', (req, res) => {
 });
 
 // Route for xiaomi_redmi_note_10_pro-10662.php
-app.get('/api', async (req, res) => {
+app.post('/api', async (req, res) => {
 	try {
-		console.log('2 .Inside');
+		body = req.body;
 		const model_prices = await scraper.getAllSearchResults(
 			'Redmi note 10',
 			'https://www.gsmarena.com/',
