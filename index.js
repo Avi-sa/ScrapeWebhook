@@ -9,7 +9,9 @@ app.get("/home", (req, res)=>{
 })
 
 // declaring our Port number variable
-const PORT = process.env.PORT || 4000;
+const PORT = 4000 || process.env.PORT;
+
+console.log(PORT)
 
 // Creating a server with the PORT variable declared above
 app.listen(PORT, ()=>{

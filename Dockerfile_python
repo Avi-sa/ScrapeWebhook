@@ -1,0 +1,19 @@
+FROM python:3.8
+ENV PYTHONBUFFERED=1
+RUN mkdir /app
+WORKDIR /app
+ADD . /app
+COPY requirements.txt /app/
+RUN pip install -r requirements.txt 
+COPY . /app
+
+# RUN sudo npm install -g yarnpkg
+# #Upgrading node version to latest stable
+# RUN sudo npm cache clean -f
+# RUN sudo npm install -g n
+# RUN sudo n stable
+# RUN sudo ln -sf /usr/local/n/versions/node/7.8.0/bin/node /usr/bin/node
+# #Upgrade yarn to latest stable
+# RUN npm install -g yarn
+# # Install app dependencies
+# RUN yarn install

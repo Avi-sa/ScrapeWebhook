@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile_python
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    command: >
+      sh -c "python3 manage.py makemigrations &&
+              python3 manage.py migrate &&
+             python3 manage.py runserver 0.0.0.0:8000"
+    env_file:
+      - .env
+  
+  scrapper:
+    build:
+      context: .
+      dockerfile: Dockerfile_node
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/scrapper
+    command: >
+      sh -c "npm install nodemon && npm start dev"
+    env_file:
+      - .env

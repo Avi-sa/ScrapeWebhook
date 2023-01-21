@@ -1,0 +1,7 @@
+FROM node:16
+RUN mkdir /scrape
+WORKDIR /scrape/
+ADD . /scrape
+COPY package*.json /scrape/
+RUN npm install
+RUN apt-get update
