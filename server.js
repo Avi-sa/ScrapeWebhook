@@ -3,6 +3,10 @@
 var PROTO_PATH = './client_server.proto';
 var grpc = require('@grpc/grpc-js');
 var protoLoader = require('@grpc/proto-loader');
+
+const scraper = require('./web_scrape.js');
+const webhook_call = require('./webhook.js');
+
 // Suggested options for similarity to existing grpc.load behavior
 var packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 	keepCase: true,
@@ -11,30 +15,28 @@ var packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 	defaults: true,
 	oneofs: true,
 });
+
 var protoDescriptor = grpc.loadPackageDefinition(packageDefinition);
 // The protoDescriptor object has the full package hierarchy
 
 // console.log(protoDescriptor.Data);
 var data = protoDescriptor.Data;
 
-function checkFeature(point) {
-	var feature;
-	feature = {
-		price: 10,
-	};
-	return feature;
+function getResponse(model_name, search_url) {
+	const scraped_json = scraper.getAllSearchResults(model_name, search_url);
+	return scraped_json;
 }
 
-function SendWebhookData(call, callback) {
+async function SendWebhookData(call, callback) {
 	console.log('Hit the request on Node');
 	var request = call.request;
 	var model_name = request.model_name;
 	console.log(model_name);
-	console.log(checkFeature(call.request));
-	callback(null, checkFeature(call.request));
+	var res = await getResponse(model_name, 'https://www.gsmarena.com/');
+	// console.log();
+	webhook_call.post_webhook(res, '');
+	callback(null, { json_data: JSON.stringify(res) });
 }
-
-// console.log(data.service);
 
 function getServer() {
 	var server = new grpc.Server();
@@ -43,6 +45,7 @@ function getServer() {
 	});
 	return server;
 }
+
 var routeServer = getServer();
 routeServer.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
 	routeServer.start();
