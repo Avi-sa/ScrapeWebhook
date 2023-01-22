@@ -45,6 +45,7 @@ const dataScraper = async function getDataScraper(url) {
 	return priceArray;
 };
 
+// # Function is Called to get all the data related to the search
 const getAllSearchResults = async (search, url) => {
 	const searchKey = search.replaceAll(' ', '+');
 	const searchUrl = url + 'res.php3?sSearch=' + searchKey;

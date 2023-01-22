@@ -7,6 +7,9 @@ from python_client import run
 
 
 class SearchDeviceModelAPIView(APIView):
+    '''
+    Class based view to call the scrape data using microservice and call webhook.
+    '''
 
     http_method_names = ['post']
 

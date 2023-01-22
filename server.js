@@ -20,11 +20,13 @@ var protoDescriptor = grpc.loadPackageDefinition(packageDefinition);
 // console.log(protoDescriptor.Data);
 var data = protoDescriptor.Data;
 
+// # Function gives the scraped response of the web page.
 function getResponse(model_name, search_url) {
 	const scraped_json = scraper.getAllSearchResults(model_name, search_url);
 	return scraped_json;
 }
 
+// # Function is Called from the python client for the Data
 async function SendWebhookData(call, callback) {
 	console.log('Hit the request on Node');
 	var request = call.request;
@@ -34,6 +36,7 @@ async function SendWebhookData(call, callback) {
 	callback(null, { json_data: JSON.stringify(res) });
 }
 
+// # Initializes the server
 function getServer() {
 	var server = new grpc.Server({ GRPC_ARG_ENABLE_HTTP_PROXY: 0 });
 	server.addService(data.service, {
@@ -42,6 +45,7 @@ function getServer() {
 	return server;
 }
 
+// # Function to Start the Server
 var routeServer = getServer();
 routeServer.bindAsync('[::]:50051', grpc.ServerCredentials.createInsecure(), () => {
 	routeServer.start();

@@ -18,5 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # URL to call the client(python) service with model_name and webhook url
     path('api/', include('core.urls')),
 ]
