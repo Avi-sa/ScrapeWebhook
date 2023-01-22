@@ -22,6 +22,8 @@
 
 ## Installation
 
+#### Request CURL:
+
 ```
 curl --location --request POST 'http://127.0.0.1:8000/api/search/' \
 --header 'Content-Type: application/json' \
@@ -34,9 +36,15 @@ curl --location --request POST 'http://127.0.0.1:8000/api/search/' \
 
 \*
 
+#### Run Docker Container:
+
 ```
     $ docker-compose up
 ```
+
+-   In case npm error python not found work please
+    `npm uninstall node-sass` from local
+    first. Then run `docker-compose build && docker-compose up`
 
 ## Sample Request and Response JSON
 
