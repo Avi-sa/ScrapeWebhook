@@ -7,7 +7,7 @@ import requests
 
 
 def run(model_name, webhook_url):
-    with grpc.insecure_channel('172.18.0.2:50051', options=(('grpc.enable_http_proxy', 0),)) as channel:
+    with grpc.insecure_channel('grpc-server:50051', options=(('grpc.enable_http_proxy', 0),)) as channel:
         stub = client_server_pb2_grpc.DataStub(channel)
 
         request = client_server_pb2.DataRequest(

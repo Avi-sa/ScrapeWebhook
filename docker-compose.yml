@@ -15,6 +15,10 @@ services:
              python3 manage.py runserver 0.0.0.0:8000"
     env_file:
       - .env
+    networks:
+      - my-network
+    depends_on:
+      - grpc-server
   
   
   grpc-server:
@@ -25,4 +29,12 @@ services:
     command: >
       sh -c "npm install grpc &&
             npm install && node server.js"
+    networks:
+      - my-network
+    ports:
+      - 9000:9000
+
+networks:
+  my-network:
+    driver: bridge
 
