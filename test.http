@@ -1,0 +1,8 @@
+POST http://localhost:8000/api/search/
+Content-Type: application/json
+
+{
+    "model_name": "One Plus",
+    "webhook_url": "http://staging.joshtalks.org:9009/dashboard/test_web/"
+}
+###

@@ -3,9 +3,7 @@
 var PROTO_PATH = './client_server.proto';
 var grpc = require('@grpc/grpc-js');
 var protoLoader = require('@grpc/proto-loader');
-
 const scraper = require('./web_scrape.js');
-const webhook_call = require('./webhook.js');
 
 // Suggested options for similarity to existing grpc.load behavior
 var packageDefinition = protoLoader.loadSync(PROTO_PATH, {
@@ -33,13 +31,11 @@ async function SendWebhookData(call, callback) {
 	var model_name = request.model_name;
 	console.log(model_name);
 	var res = await getResponse(model_name, 'https://www.gsmarena.com/');
-	// console.log();
-	webhook_call.post_webhook(res, '');
 	callback(null, { json_data: JSON.stringify(res) });
 }
 
 function getServer() {
-	var server = new grpc.Server();
+	var server = new grpc.Server({ GRPC_ARG_ENABLE_HTTP_PROXY: 0 });
 	server.addService(data.service, {
 		SendWebhookData: SendWebhookData,
 	});
@@ -47,7 +43,7 @@ function getServer() {
 }
 
 var routeServer = getServer();
-routeServer.bindAsync('localhost:50051', grpc.ServerCredentials.createInsecure(), () => {
+routeServer.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
 	routeServer.start();
 	console.log('Sever started on port === 0.0.0.0:50051');
 });

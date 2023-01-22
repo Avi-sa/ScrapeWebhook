@@ -22,4 +22,4 @@ class SearchDeviceModelAPIView(APIView):
 
         run(model_name, webhook_url)
 
-        return Response({}, status=status.HTTP_200_OK)
+        return Response({"Success": True}, status=status.HTTP_200_OK)
