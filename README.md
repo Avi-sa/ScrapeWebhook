@@ -6,6 +6,8 @@
     the details of the model and price and purchase_link as the response back
     to the webhook url.
 
+![alt text](bharatX-Assignment.jpeg)
+
 ### Tech Used
 
 -   Django, Node for creating api's and views.
@@ -34,6 +36,38 @@ curl --location --request POST 'http://127.0.0.1:8000/api/search/' \
 
 ```
     $ docker-compose up
+```
+
+## Sample Request and Response JSON
+
+#### Request
+
+```
+{
+    "model_name": "Redmi Note 10",
+    "webhook_url": "http://staging.joshtalks.org:9009/dashboard/test_web/"
+}
+```
+
+##### Response
+
+```
+{'XiaomiRedmi Note 10 Pro': [
+        {'price': '$\u2009221.00',
+        'purchase_url': 'https://www.wirelessplace.com/products/xiaomi-redmi-note-10-pro-global-version-new#gsmarena'},
+        {'price': '$\u2009199.99', 'purchase_url': 'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=2&toolid=10044&campid=5338659500&customid=gsmarena&lgeo=1&vectorid=229466&item=265959585081'},
+        {'price': '$\u2009249.50', 'purchase_url': 'https://www.amazon.com/dp/B08Z7BXYDD?tag=gsmarena093-20&linkCode=osi&th=1&psc=1'},
+        {'price': '£\u2009348.00', 'purchase_url': 'https://www.awin1.com/pclick.php?p=33380414213&a=1169550&m=25205'}
+    ],
+    'XiaomiRedmi Note 10': [
+        {'price': '£\u2009203.93',
+        'purchase_url': 'https://www.amazon.co.uk/dp/B09RNDDX4X?tag=gsmcom-21&linkCode=osi&th=1&psc=1'},
+        {
+            'price': '$\u2009259.99', 'purchase_url': 'https://www.amazon.com/dp/B09CZ8MJCH?tag=gsmarena093-20&linkCode=osi&th=1&psc=1'
+        },
+        {'price': '€\u2009231.75', 'purchase_url': 'https://www.amazon.de/dp/B08Y8M8G4B?tag=gsmarena0ca-21&linkCode=osi&th=1&psc=1'}
+    ]
+}
 ```
 
 ## API TESTING
