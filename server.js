@@ -47,7 +47,7 @@ function getServer() {
 }
 
 var routeServer = getServer();
-routeServer.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
+routeServer.bindAsync('localhost:50051', grpc.ServerCredentials.createInsecure(), () => {
 	routeServer.start();
 	console.log('Sever started on port === 0.0.0.0:50051');
 });

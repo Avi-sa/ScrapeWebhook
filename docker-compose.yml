@@ -16,15 +16,34 @@ services:
     env_file:
       - .env
   
-  scrapper:
+  # scrapper:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile_node
+  #   ports:
+  #     - "4000:4000"
+  #   volumes:
+  #     - .:/scrapper
+  #   command: >
+  #     sh -c "npm install nodemon &&
+  #           npm install grpc &&
+  #           npm install && node server.js"
+  #   env_file:
+  #     - .env
+  
+  grpc-server:
+    container_name: grpc-server
     build:
-      context: .
-      dockerfile: Dockerfile_node
-    ports:
-      - "4000:4000"
-    volumes:
-      - .:/scrapper
+      context: ./
+      dockerfile: Dockerfile
     command: >
-      sh -c "npm install nodemon && npm run dev"
-    env_file:
-      - .env
+      sh -c "npm install grpc &&
+            npm install && node server.js" 
+
+  # grpc-client:
+  #   container_name: grpc-client
+  #   build:
+  #     context: ./
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
